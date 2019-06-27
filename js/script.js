@@ -4,7 +4,6 @@ $(function () { // Same as document.addEventListener("DOMContentLoaded"...
   $("#navbarToggle").blur(function (event) {
     var screenWidth = window.innerWidth;
     if (screenWidth < 768) {
-      $("#collapsable-nav").collapse('hide');
     }
   });
 
@@ -102,6 +101,17 @@ dc.loadMenuItems = function (categoryShort) {
     buildAndShowMenuItemsHTML);
 };
 
+// Build random get character element function
+dc.randomLoadMenuItems = function () {
+  $ajaxUtils.sendGetRequest(
+    allCategoriesUrl,
+    randomSelection);
+};
+
+function randomSelection (categories) {
+  var randomCategoryShort = categories[Math.floor(Math.random() * categories.length)];
+  dc.loadMenuItems(randomCategoryShort.short_name);
+};
 
 // Builds HTML for the categories page based on the data
 // from the server
